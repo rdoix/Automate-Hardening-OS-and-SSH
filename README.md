@@ -3,7 +3,7 @@
 
 ## Module Description
 
-This Puppet module provides secure configuration of your base OS with hardening and is part of the [DevSec Hardening Framework](https://dev-sec.io).
+This Puppet module provides secure configuration of SSH & your base OS with hardening automatically
 
 ## Setup
 
@@ -20,6 +20,33 @@ This Puppet module provides secure configuration of your base OS with hardening 
 
 **If you are using this module in a PE environment, you have to set** `pe_environment = true`
 Otherwise puppet will drop an error (duplicate resource)!
+
+### SSH Hardening Parameters
+
+* `ipv6_enabled = false`
+  true if IPv6 is needed
+* `cbc_required = false`
+  true if CBC for ciphers is required. This is usually only necessary, if older M2M mechanism need to communicate with SSH, that don't have any of the configured secure ciphers enabled. CBC is a weak alternative. Anything weaker should be avoided and is thus not available.
+* `weak_hmac`
+  false - true if weaker HMAC mechanisms are required. This is usually only necessary, if older M2M mechanism need to communicate with SSH, that don't have any of the configured secure HMACs enabled.
+* `weak_kex`
+  false - true if weaker Key-Exchange (KEX) mechanisms are required. This is usually only necessary, if older M2M mechanism need to communicate with SSH, that don't have any of the configured secure KEXs enabled.
+* `allow_root_with_key = false`
+  false to disable root login altogether. Set to true to allow root to login via key-based mechanism.d
+* `ports = [ 22 ]`
+  ports to which ssh-server should listen to and ssh-client should connect to
+* `listen_to = [ "0.0.0.0" ]`
+  one or more ip addresses, to which ssh-server should listen to. Default is empty, but should be configured for security reasons!
+* `remote_host`
+  one or more hosts, to which ssh-client can connect to. Default is empty, but should be configured for security reasons!
+* `allow_tcp_forwarding = false`
+  set to true to allow TCP forwarding
+* `allow_agent_forwarding = false`
+  set to true to allow Agent forwarding
+* `use_pam = false`
+  to disable pam authentication
+* `pam_auth = false`
+  to disable Password Authentication
 
 ### OS Hardening Parameters
 
@@ -158,33 +185,4 @@ Otherwise puppet will drop an error (duplicate resource)!
 * `manage_system_users = true`
   set to false to disable managing of system users (empty password and setting nologin shell)
 
-
-### SSH Hardening Parameters
-
-* `ipv6_enabled = false`
-  true if IPv6 is needed
-* `cbc_required = false`
-  true if CBC for ciphers is required. This is usually only necessary, if older M2M mechanism need to communicate with SSH, that don't have any of the configured secure ciphers enabled. CBC is a weak alternative. Anything weaker should be avoided and is thus not available.
-* `weak_hmac`
-  false - true if weaker HMAC mechanisms are required. This is usually only necessary, if older M2M mechanism need to communicate with SSH, that don't have any of the configured secure HMACs enabled.
-* `weak_kex`
-  false - true if weaker Key-Exchange (KEX) mechanisms are required. This is usually only necessary, if older M2M mechanism need to communicate with SSH, that don't have any of the configured secure KEXs enabled.
-* `allow_root_with_key = false`
-  false to disable root login altogether. Set to true to allow root to login via key-based mechanism.d
-* `ports = [ 22 ]`
-  ports to which ssh-server should listen to and ssh-client should connect to
-* `listen_to = [ "0.0.0.0" ]`
-  one or more ip addresses, to which ssh-server should listen to. Default is empty, but should be configured for security reasons!
-* `remote_host`
-  one or more hosts, to which ssh-client can connect to. Default is empty, but should be configured for security reasons!
-* `allow_tcp_forwarding = false`
-  set to true to allow TCP forwarding
-* `allow_agent_forwarding = false`
-  set to true to allow Agent forwarding
-* `use_pam = false`
-  to disable pam authentication
-* `pam_auth = false`
-  to disable Password Authentication
-
-
-_refrence and modified from_ [dev-sec](https://github.com/dev-sec)
+_refrence and modified from_ [DevSec Hardening Framework](https://github.com/dev-sec)
