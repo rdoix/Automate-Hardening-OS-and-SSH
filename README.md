@@ -1,4 +1,4 @@
-# Automate Hardening with Puppet
+# Automate Hardening OS & SSH with Puppet
 
 
 ## Module Description
