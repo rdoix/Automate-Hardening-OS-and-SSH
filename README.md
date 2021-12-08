@@ -20,27 +20,27 @@ This Puppet module provides secure configuration of SSH & your base OS with hard
 ```bash
 # Change to directory environments
 cd /etc/puppetlabs/code/environments/production/
+
+#Download hardening configuration repo from github 
 git clone https://github.com/rdoix/Puppet-Hardening.git .
 ```
 
 ### Sample Puppet Manifest
-Create or edit file on `/etc/puppetlabs/code/environments/production/<file.pp>` and input the script
+Create or edit file on `/etc/puppetlabs/code/environments/production/<file.pp>` and input the script:
 ```puppet
 class { 'os_hardening':
-  enable_ipv4_forwarding => true,
-  wanted_packages   => ['ntp'],
-  unwanted_packages => ['telnet'],
-  disabled_services => ['rsync'],
-  
+  wanted_packages   => ['ntp'],     #Implement necessary module
+  unwanted_packages => ['telnet'],  #Purge unnecessary module
+  disabled_services => ['rsync'],   #Disable unnecasry services
 }
 
 class { 'ssh_hardening::client': }
 
 class { 'ssh_hardening::server':
-  use_pam => true,
-  pam_auth => true,
-  ports => 20002,
-  listen_to => 10.2.3.4
+  use_pam => true,          #use PAM yes, if used SSH key it is highly recommended to set false
+  pam_auth => true,         #using Password Aunthentication, if used SSH key it is highly recommended to set false
+  ports => 20002,           #SSH Server Port listen at 20002
+  listen_to => 10.1.2.3,    #only accessible from 10.1.2.3, by default value for listen_to is 0.0.0.0. It is highly recommended to change the value.
 }
 ```
 
