@@ -3,10 +3,15 @@
 
 #### Table of Contents
 
-1. [Module Description - What the module does and why it is useful](#module-description)
-1. [Setup - The basics of getting started with os_hardening](#setup-configuration)
+1. [Module Description - Description of modules](#module-description)
+1. [Setup Configuration - Started setup puppet configuration](#setup-configuration)
    * [Setup Requirements](#setup-requirements)
-  
+   * [Setup Hardening Modules](#setup-hardening-modules)
+   * [Sample Puppet Manifest](#sample-puppet-manifest)
+1. [Usage - Detail of custom parameters](#usage)
+   * [SSH Hardening Parameters](#ssh-hardening-parameters)
+   * [OS Hardening Parameters](#os-hardening-parameters)
+1. [Credit](#credit)
 
 ## Module Description
 
@@ -222,5 +227,7 @@ Otherwise puppet will drop an error (duplicate resource)!
   set to false to disable sysctl configuration
 * `manage_system_users = true`
   set to false to disable managing of system users (empty password and setting nologin shell)
+
+## Credit
 
 _refrence and modified from_ [DevSec Hardening Framework](https://github.com/dev-sec)
