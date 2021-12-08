@@ -5,15 +5,44 @@
 
 This Puppet module provides secure configuration of SSH & your base OS with hardening automatically
 
-## Setup
+## Setup Congiuration
 
 ### Setup Requirements
 
-* Puppet OpenSource or Enterprise
+* Puppet OpenSource or Enterprise Server (Linux)
+* Git
 * SSH
 * [Module stdlib](https://forge.puppet.com/puppetlabs/stdlib)
 * [Module sysctl](https://forge.puppet.com/herculesteam/augeasproviders_sysctl)
 
+### Setup Hardening Modules
+
+```bash
+# Change to directory environments
+cd /etc/puppetlabs/code/environments/production/
+git clone https://github.com/rdoix/Puppet-Hardening.git .
+```
+
+### Sample Puppet Manifest
+Create or edit file on `/etc/puppetlabs/code/environments/production/<file.pp>` and input the script
+```puppet
+class { 'os_hardening':
+  enable_ipv4_forwarding => true,
+  wanted_packages   => ['ntp'],
+  unwanted_packages => ['telnet'],
+  disabled_services => ['rsync'],
+  
+}
+
+class { 'ssh_hardening::client': }
+
+class { 'ssh_hardening::server':
+  use_pam => true,
+  pam_auth => true,
+  ports => 20002,
+  listen_to => 10.2.3.4
+}
+```
 
 ## Usage
 
@@ -186,26 +215,4 @@ Otherwise puppet will drop an error (duplicate resource)!
 * `manage_system_users = true`
   set to false to disable managing of system users (empty password and setting nologin shell)
 
-## Configuration
-
-### Sample Puppet Manifest
-
-```puppet
-class { 'os_hardening':
-  enable_ipv4_forwarding => true,
-  wanted_packages   => ['ntp'],
-  unwanted_packages => ['telnet'],
-  disabled_services => ['rsync'],
-  
-}
-
-class { 'ssh_hardening::client': }
-
-class { 'ssh_hardening::server':
-  use_pam => true,
-  pam_auth => true,
-  ports => 20002,
-  listen_to => 10.2.3.4
-}
-```
 _refrence and modified from_ [DevSec Hardening Framework](https://github.com/dev-sec)
