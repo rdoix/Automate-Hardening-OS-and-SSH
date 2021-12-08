@@ -1,6 +1,13 @@
 # Automate Hardening OS & SSH with Puppet
 
 
+#### Table of Contents
+
+1. [Module Description - What the module does and why it is useful](#module-description)
+1. [Setup - The basics of getting started with os_hardening](#setup-configuration)
+   * [Setup Requirements](#setup-requirements)
+  
+
 ## Module Description
 
 This Puppet module provides secure configuration of SSH & your base OS with hardening automatically
