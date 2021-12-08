@@ -5,7 +5,7 @@
 
 This Puppet module provides secure configuration of SSH & your base OS with hardening automatically
 
-## Setup Congiuration
+## Setup Configuration
 
 ### Setup Requirements
 
@@ -26,6 +26,7 @@ git clone https://github.com/rdoix/Puppet-Hardening.git .
 ```
 
 ### Sample Puppet Manifest
+
 Create or edit file on `/etc/puppetlabs/code/environments/production/<file.pp>` and input the script:
 ```puppet
 class { 'os_hardening':
